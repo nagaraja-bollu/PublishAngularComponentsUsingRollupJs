@@ -4,14 +4,12 @@
 - Angular-cli template
 -  Rollup js
 
-
 ### Create Angular application using angular/cli
 
 Run below commands for create a angular template
 ```sh
 $ ng g new project-name
 $ cd project-name
-$ npm install
 ```
 Now Angular application is ready to use
 ### Install [RollupJS](https://rollupjs.org/guide/en) package
@@ -41,5 +39,52 @@ npm install --save-dev rollup-plugin-commonjs
 npm install --save-dev rollup-plugin-angular
 npm install --save-dev rollup-plugin-typescript
 npm install --save-dev node-sass
+```
+
+### create new component (EMIComponent)
+
+```
+$ ng g component emi
+```
+for example, emi.component.ts file will create in the project with html as <p>emi works!</p>
+
+#### export EMIComponent in app.module.ts
+```
+@NgModule({
+  declarations: [
+    AppComponent,
+    EmiComponent
+  ],
+  exports: [EmiComponent],
+  imports: [
+    BrowserModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+#### Create export.file.ts
+```
+// export the files here which will be available in client app while consuming this npm package
+export * from './emi/emi.component'; 
+```
+
+#### update package.json
+
+```
+"main": "libraryname.umd.js",
+"jsnext:main": "libraryname.esm.js",
+"module": "libraryname.esm.js",
+"types": "libraryname.d.ts",
+```
+
+### create gulpfile for tasks to run for build
+Refer code repository for it.
+
+```
+$ cd dist
+// login to npm registry or use .npmrc file and then publish the package
+$ npm publish 
 ```
 
